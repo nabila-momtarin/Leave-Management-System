@@ -31,8 +31,9 @@ let UserController = class UserController {
         this.goCreateUser = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 console.log("Entered in USER CONTROLLER");
-                const { data } = req.body;
-                console.log(`request data in CONTROLLER : ${data}`);
+                const data = req.body;
+                // console.log(`request data in CONTROLLER : ${data}`);
+                console.log("request data in CONTROLLER :", data);
                 const hashedPassword = yield bcrypt_1.default.hash(data.password, 10);
                 const user = yield this.userService.createUser(Object.assign(Object.assign({}, data), { password: hashedPassword }));
                 console.log(`user in controller : ${user}\n\n`);
@@ -52,9 +53,9 @@ let UserController = class UserController {
             try {
                 console.log("Entered in USER CONTROLLER");
                 const { email, password } = req.body;
-                console.log(`request data in CONTROLLER : email: ${email}, password: ${password} `);
+                console.log(`request data in CONTROLLER : email: ${email}, password: ${password} \n`);
                 const token = yield user_service_1.UserService.login(email, password);
-                console.log(`user in controller : ${token}\n\n`);
+                console.log(`token in controller : ${token}\n\n`);
                 return res.status(200).json({
                     status: "200",
                     message: "User logged in successfully",

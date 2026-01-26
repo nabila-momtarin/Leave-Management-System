@@ -31,6 +31,7 @@ let UserService = class UserService {
     constructor() {
         this.createUser = (userData) => __awaiter(this, void 0, void 0, function* () {
             console.log("Entered in USER SERVICE");
+            console.log(`request userData in CONTROLLER : ${userData}\n`);
             const existingUser = yield user_model_1.default.findOne({ email: userData.email });
             if (existingUser) {
                 console.log("Error : User already exists");
@@ -44,10 +45,10 @@ let UserService = class UserService {
 };
 exports.UserService = UserService;
 UserService.login = (email, password) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("Entered in USER SERVICE");
-    const user = yield user_model_1.default.findOne({ email: email });
+    console.log("\nEntered in USER SERVICE");
     console.log(jwt_1.jwtConfig.secretKey, "secret key from userService");
     console.log(jwt_1.jwtConfig.expiresIn, "expiresIn from userService");
+    const user = yield user_model_1.default.findOne({ email: email });
     if (!user) {
         console.log("Error : User not found!");
         throw new Error("User not found!");

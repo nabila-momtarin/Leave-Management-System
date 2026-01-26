@@ -2,5 +2,5 @@ import { StringValue } from "ms";
 
 export interface IJwtConfig {
     secretKey: string;
-    expiresIn: StringValue | number ;
+    expiresIn: StringValue ;
 }

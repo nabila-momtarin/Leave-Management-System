@@ -10,16 +10,18 @@ export class UserController {
   goCreateUser = async (req: Request, res: Response): Promise<any> => {
     try {
       console.log("Entered in USER CONTROLLER");
-      const {data} = req.body;
-      console.log(`request data in CONTROLLER : ${data}`);
+      const data = req.body;
+      // console.log(`request data in CONTROLLER : ${data}`);
+      console.log("request data in CONTROLLER :", data);
 
       const hashedPassword = await bcrypt.hash(data.password, 10);
 
       const user = await this.userService.createUser({
         ...data,
-        password: hashedPassword
+        password: hashedPassword,
       });
       console.log(`user in controller : ${user}\n\n`);
+
       return res.status(200).json({
         status: "200",
         message: "User added successfully",
@@ -35,11 +37,13 @@ export class UserController {
   logInUser = async (req: Request, res: Response): Promise<any> => {
     try {
       console.log("Entered in USER CONTROLLER");
-      const {email, password} = req.body;
-      console.log(`request data in CONTROLLER : email: ${email}, password: ${password} `);
+      const { email, password } = req.body;
+      console.log(
+        `request data in CONTROLLER : email: ${email}, password: ${password} \n`,
+      );
 
       const token = await UserService.login(email, password);
-      console.log(`user in controller : ${token}\n\n`);
+      console.log(`\ntoken in controller : ${token}\n\n`);
 
       return res.status(200).json({
         status: "200",
