@@ -1,0 +1,55 @@
+import { injectable } from "tsyringe";
+import { UserService } from "../service/user.service";
+import { Request, Response } from "express";
+import bcrypt from "bcrypt";
+
+@injectable()
+export class UserController {
+  constructor(private userService: UserService) {}
+
+  goCreateUser = async (req: Request, res: Response): Promise<any> => {
+    try {
+      console.log("Entered in USER CONTROLLER");
+      const {data} = req.body;
+      console.log(`request data in CONTROLLER : ${data}`);
+
+      const hashedPassword = await bcrypt.hash(data.password, 10);
+
+      const user = await this.userService.createUser({
+        ...data,
+        password: hashedPassword
+      });
+      console.log(`user in controller : ${user}\n\n`);
+      return res.status(200).json({
+        status: "200",
+        message: "User added successfully",
+        timeStamp: new Date(),
+        data: user,
+      });
+    } catch (err) {
+      console.log("ERROR in User CONTROLLER : ", err);
+      return res.status(400).json(err);
+    }
+  };
+
+  logInUser = async (req: Request, res: Response): Promise<any> => {
+    try {
+      console.log("Entered in USER CONTROLLER");
+      const {email, password} = req.body;
+      console.log(`request data in CONTROLLER : email: ${email}, password: ${password} `);
+
+      const token = await UserService.login(email, password);
+      console.log(`user in controller : ${token}\n\n`);
+
+      return res.status(200).json({
+        status: "200",
+        message: "User logged in successfully",
+        timeStamp: new Date(),
+        data: token,
+      });
+    } catch (err) {
+      console.log("ERROR in User LogIn CONTROLLER : ", err);
+      return res.status(400).json(err);
+    }
+  };
+}
