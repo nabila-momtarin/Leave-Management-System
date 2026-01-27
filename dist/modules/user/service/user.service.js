@@ -24,9 +24,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
 const tsyringe_1 = require("tsyringe");
 const user_model_1 = __importDefault(require("../../../model/user.model"));
-const bcrypt_1 = __importDefault(require("bcrypt"));
-const jwt_1 = require("../../../config/jwt");
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 let UserService = class UserService {
     constructor() {
         this.createUser = (userData) => __awaiter(this, void 0, void 0, function* () {
@@ -41,33 +38,21 @@ let UserService = class UserService {
             console.log(`user in SERVICE : ${user}\n\n`);
             return user;
         });
+        this.getAllUsers = () => __awaiter(this, void 0, void 0, function* () {
+            try {
+                console.log("Entered in USER SERVICE");
+                const users = yield user_model_1.default.find({});
+                console.log("SERVICE : users : ", users);
+                return users;
+            }
+            catch (err) {
+                console.log("SERVICE : Error : ", err);
+                throw err;
+            }
+        });
     }
 };
 exports.UserService = UserService;
-UserService.login = (email, password) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("\nEntered in USER SERVICE");
-    console.log(jwt_1.jwtConfig.secretKey, "secret key from userService");
-    console.log(jwt_1.jwtConfig.expiresIn, "expiresIn from userService");
-    const user = yield user_model_1.default.findOne({ email: email });
-    if (!user) {
-        console.log("Error : User not found!");
-        throw new Error("User not found!");
-    }
-    const isPasswordMatch = yield bcrypt_1.default.compare(password, user.password);
-    if (!isPasswordMatch) {
-        console.log("Error : Invalid password!");
-        throw new Error("Invalid password!");
-    }
-    // if (!jwtConfig?.secretKey) {
-    //   throw new Error("JWT secret key is not defined");
-    // }
-    const secretKey = jwt_1.jwtConfig && jwt_1.jwtConfig.secretKey
-        ? jwt_1.jwtConfig.secretKey
-        : "ghorardimersecrekey";
-    const expiresIn = jwt_1.jwtConfig === null || jwt_1.jwtConfig === void 0 ? void 0 : jwt_1.jwtConfig.expiresIn;
-    const token = jsonwebtoken_1.default.sign({ id: user._id, email: user.email }, secretKey, { expiresIn: expiresIn });
-    return token;
-});
 exports.UserService = UserService = __decorate([
     (0, tsyringe_1.injectable)(),
     __metadata("design:paramtypes", [])

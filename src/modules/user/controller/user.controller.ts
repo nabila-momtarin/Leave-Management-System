@@ -34,26 +34,19 @@ export class UserController {
     }
   };
 
-  logInUser = async (req: Request, res: Response): Promise<any> => {
+  getAllUsers = async (req: Request, res: Response): Promise<any> => {
     try {
+      
       console.log("Entered in USER CONTROLLER");
-      const { email, password } = req.body;
-      console.log(
-        `request data in CONTROLLER : email: ${email}, password: ${password} \n`,
-      );
-
-      const token = await UserService.login(email, password);
-      console.log(`\ntoken in controller : ${token}\n\n`);
-
-      return res.status(200).json({
+      const users = await this.userService.getAllUsers();
+       res.status(200).json({
         status: "200",
-        message: "User logged in successfully",
+        message: "Users fetched successfully",
         timeStamp: new Date(),
-        data: token,
+        data: users,
       });
     } catch (err) {
-      console.log("ERROR in User LogIn CONTROLLER : ", err);
-      return res.status(400).json(err);
+      console.log("ERROR in User CONTROLLER : ", err);
     }
   };
 }

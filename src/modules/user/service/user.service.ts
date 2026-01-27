@@ -1,9 +1,6 @@
 import { injectable } from "tsyringe";
 import User from "../../../model/user.model";
-import bcrypt from "bcrypt";
-import { jwtConfig } from "../../../config/jwt";
-import jwt, { Secret } from "jsonwebtoken";
-import { StringValue } from "ms";
+
 @injectable()
 export class UserService {
   constructor() {}
@@ -24,42 +21,15 @@ export class UserService {
     return user;
   };
 
-  static login = async (email: string, password: string): Promise<any> => {
-    console.log("\nEntered in USER SERVICE");
-    console.log(jwtConfig.secretKey, "secret key from userService");
-    console.log(jwtConfig.expiresIn, "expiresIn from userService");
-
-    const user = await User.findOne({ email: email });
-
-    if (!user) {
-      console.log("Error : User not found!");
-      throw new Error("User not found!");
+  getAllUsers = async (): Promise<IUser[]> => {
+    try {
+      console.log("Entered in USER SERVICE");
+      const users = await User.find({});
+      console.log("SERVICE : users : ", users);
+      return users;
+    } catch (err) {
+      console.log("SERVICE : Error : ", err);
+      throw err;
     }
-
-    const isPasswordMatch = await bcrypt.compare(password, user.password);
-
-    if (!isPasswordMatch) {
-      console.log("Error : Invalid password!");
-      throw new Error("Invalid password!");
-    }
-
-    // if (!jwtConfig?.secretKey) {
-    //   throw new Error("JWT secret key is not defined");
-    // }
-
-    const secretKey =
-      jwtConfig && jwtConfig.secretKey
-        ? jwtConfig.secretKey
-        : "cholomorejai";
-
-    // const expiresIn = jwtConfig?.expiresIn ? jwtConfig.expiresIn : "10";
-
-    const token = jwt.sign(
-      { id: user._id, email: user.email },
-      secretKey,
-      { expiresIn: jwtConfig.expiresIn  },
-    );
-
-    return token;
   };
 }

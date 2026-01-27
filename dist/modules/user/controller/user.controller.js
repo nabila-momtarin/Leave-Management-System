@@ -49,23 +49,19 @@ let UserController = class UserController {
                 return res.status(400).json(err);
             }
         });
-        this.logInUser = (req, res) => __awaiter(this, void 0, void 0, function* () {
+        this.getAllUsers = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 console.log("Entered in USER CONTROLLER");
-                const { email, password } = req.body;
-                console.log(`request data in CONTROLLER : email: ${email}, password: ${password} \n`);
-                const token = yield user_service_1.UserService.login(email, password);
-                console.log(`token in controller : ${token}\n\n`);
-                return res.status(200).json({
+                const users = yield this.userService.getAllUsers();
+                res.status(200).json({
                     status: "200",
-                    message: "User logged in successfully",
+                    message: "Users fetched successfully",
                     timeStamp: new Date(),
-                    data: token,
+                    data: users,
                 });
             }
             catch (err) {
-                console.log("ERROR in User LogIn CONTROLLER : ", err);
-                return res.status(400).json(err);
+                console.log("ERROR in User CONTROLLER : ", err);
             }
         });
     }

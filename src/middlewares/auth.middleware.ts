@@ -1,23 +1,29 @@
-// import { Request, Response, NextFunction } from 'express';
-// import jwt from 'jsonwebtoken';
-// import { jwtConfig } from '../config/jwt';
+import { Request, Response, NextFunction } from "express";
+import { verifyAccessToken } from "../utils/jwt.utils";
+//import { Error } from "mongoose";
 
-// export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
-//   // Extract token from Authorization header
-//   const token = req.header('Authorization')?.replace('Bearer ', '');
+export const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const token = req.headers.authorization?.split(" ")[1];
+        console.log(`Middleware : Token : ${token}`);
 
-//   if (!token) {
-//     return res.status(401).json({ message: 'Access Denied. No Token Provided.' });
-//   }
+        if( !token ) {
+            console.log("Middleware : Token not found");
+            throw new Error("Token not found");
+        }
 
-//   // Verify the token
-//   jwt.verify(token, jwtConfig.secretKey, (err, decoded) => {
-//     if (err) {
-//       return res.status(403).json({ message: 'Invalid or expired token.' });
-//     }
+        const dcodedToken = /*await*/ verifyAccessToken(token);
 
-//     // Attach decoded user data to request
-//     req.user = decoded;
-//     next();
-//   });
-// };
+        if( !dcodedToken ) {
+            console.log("Middleware : Invalid Token");
+            throw new Error("Invalid Token");
+        }
+
+        console.log("Token decoded successfully");
+
+        next();
+        
+    } catch (err : any) {
+        console.log(`Error : auth Middleware : ${err}`);
+    }
+}
