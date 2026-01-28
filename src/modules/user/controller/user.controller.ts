@@ -13,6 +13,10 @@ export class UserController {
       const data = req.body;
       // console.log(`request data in CONTROLLER : ${data}`);
       console.log("request data in CONTROLLER :", data);
+      //check profile pic exist or not
+      if (!req.file) {
+        return res.status(400).send("No profile picture uploaded.");
+      }
 
       const hashedPassword = await bcrypt.hash(data.password, 10);
 
@@ -36,10 +40,9 @@ export class UserController {
 
   getAllUsers = async (req: Request, res: Response): Promise<any> => {
     try {
-      
       console.log("Entered in USER CONTROLLER");
       const users = await this.userService.getAllUsers();
-       res.status(200).json({
+      res.status(200).json({
         status: "200",
         message: "Users fetched successfully",
         timeStamp: new Date(),
