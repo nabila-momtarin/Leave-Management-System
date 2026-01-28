@@ -8,5 +8,5 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 exports.SECRET_KEY = process.env.SECRET_KEY || "HACKED--!!!--";
 exports.EXPIRES_IN = process.env.EXPIRES_IN || "50s";
-//is it mendatory to type define in this file? 
+//is it mandatory to type define in this file? 
 // as we also define type in config file

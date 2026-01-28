@@ -8,7 +8,15 @@ const router = Router();
 
 const userController = container.resolve(UserController);
 
-router.post("/register", upload.single('image'), userController.goCreateUser);
+router.post("/register", upload.fields([
+    {
+        name: "image",
+        maxCount: 3
+    },{
+        name: "docs",
+        maxCount: 1
+    }
+]), userController.goCreateUser);
 
 router.get("/", authMiddleware ,userController.getAllUsers);
 

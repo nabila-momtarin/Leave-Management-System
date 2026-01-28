@@ -14,16 +14,23 @@ export class UserController {
       // console.log(`request data in CONTROLLER : ${data}`);
       console.log("request data in CONTROLLER :", data);
       //check profile pic exist or not
-      if (!req.file) {
+      console.log("image in CONTROLLER :", req.files);
+      if (!req.files) {
         return res.status(400).send("No profile picture uploaded.");
       }
 
       const hashedPassword = await bcrypt.hash(data.password, 10);
 
-      const user = await this.userService.createUser({
+
+      const userData: IUser = {
         ...data,
         password: hashedPassword,
-      });
+        profilePic: 'string',
+       // doc: req.files.,
+
+      }
+
+      const user = await this.userService.createUser(userData);
       console.log(`user in controller : ${user}\n\n`);
 
       return res.status(200).json({

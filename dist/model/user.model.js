@@ -24,6 +24,10 @@ const userSchema = new mongoose_1.Schema({
         type: String,
         require: true,
     },
+    profilePic: {
+        type: (Array),
+        require: false,
+    },
 });
 const User = (0, mongoose_1.model)("User", userSchema);
 exports.default = User;

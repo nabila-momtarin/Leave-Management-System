@@ -6,6 +6,8 @@ export class UserService {
   constructor() {}
 
   createUser = async (userData: Partial<IUser>): Promise<IUser> => {
+
+    
     console.log("Entered in USER SERVICE");
     console.log(`request userData in CONTROLLER : ${userData}\n`);
 

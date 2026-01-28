@@ -34,8 +34,14 @@ let UserController = class UserController {
                 const data = req.body;
                 // console.log(`request data in CONTROLLER : ${data}`);
                 console.log("request data in CONTROLLER :", data);
+                //check profile pic exist or not
+                console.log("image in CONTROLLER :", req.files);
+                if (!req.files) {
+                    return res.status(400).send("No profile picture uploaded.");
+                }
                 const hashedPassword = yield bcrypt_1.default.hash(data.password, 10);
-                const user = yield this.userService.createUser(Object.assign(Object.assign({}, data), { password: hashedPassword }));
+                const userData = Object.assign(Object.assign({}, data), { password: hashedPassword, profilePic: req.files });
+                const user = yield this.userService.createUser(userData);
                 console.log(`user in controller : ${user}\n\n`);
                 return res.status(200).json({
                     status: "200",

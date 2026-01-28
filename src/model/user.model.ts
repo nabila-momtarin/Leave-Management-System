@@ -23,6 +23,10 @@ const userSchema = new Schema({
     type: String,
     require: true,
   },
+  profilePic: {
+    type: Array<string>,
+    require: false,
+  },
 });
 
 const User = model<IUser>("User", userSchema);

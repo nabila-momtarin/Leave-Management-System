@@ -4,5 +4,6 @@ interface IUser {
     email: string,
     password: string,
     role: 'admin' | 'user',
-    createdAt?: Date
+    createdAt?: Date,
+    // profilePic?: Array<string>
 }
