@@ -1,5 +1,6 @@
 import multer from "multer";
 import path from "path";
+import { ApiError } from "../utils/api.response";
 // import path from "path";
 
 const storage = multer.diskStorage({
@@ -27,7 +28,7 @@ const storage = multer.diskStorage({
     if (file.fieldname === "image") {
       if(!file.mimetype.includes("image")) {
         console.log("NOT AN IMAGE")
-        throw new Error("error");
+        throw new ApiError("error", 400);
       }
       cb(null, profilePicFolderPath);
     } else if (file.fieldname === "docs") {

@@ -24,6 +24,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
 const tsyringe_1 = require("tsyringe");
 const user_model_1 = __importDefault(require("../../../model/user.model"));
+const api_response_1 = require("../../../utils/api.response");
 let UserService = class UserService {
     constructor() {
         this.createUser = (userData) => __awaiter(this, void 0, void 0, function* () {
@@ -32,23 +33,26 @@ let UserService = class UserService {
             const existingUser = yield user_model_1.default.findOne({ email: userData.email });
             if (existingUser) {
                 console.log("Error : User already exists");
-                throw new Error("User already exists");
+                throw new api_response_1.ApiError("User already exists", 400);
             }
             const user = yield user_model_1.default.create(userData);
             console.log(`user in SERVICE : ${user}\n\n`);
             return user;
         });
         this.getAllUsers = () => __awaiter(this, void 0, void 0, function* () {
-            try {
-                console.log("Entered in USER SERVICE");
-                const users = yield user_model_1.default.find({});
-                console.log("SERVICE : users : ", users);
-                return users;
+            /* try { */
+            console.log("Entered in USER SERVICE");
+            const users = yield user_model_1.default.find({});
+            if (!users) {
+                console.log("SERVCIE : No users found");
+                throw new api_response_1.ApiError("No users found", 404);
             }
-            catch (err) {
-                console.log("SERVICE : Error : ", err);
-                throw err;
-            }
+            console.log("SERVICE : users : ", users);
+            return users;
+            /*  } catch (err) {
+               console.log("SERVICE : Error : ", err);
+               throw err;
+             } */
         });
     }
 };

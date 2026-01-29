@@ -1,5 +1,6 @@
 import { injectable } from "tsyringe";
 import User from "../../../model/user.model";
+import { ApiError } from "../../../utils/api.response";
 
 @injectable()
 export class UserService {
@@ -14,7 +15,7 @@ export class UserService {
     const existingUser = await User.findOne({ email: userData.email });
     if (existingUser) {
       console.log("Error : User already exists");
-      throw new Error("User already exists");
+      throw new ApiError("User already exists", 400);
     }
     const user = await User.create(userData);
 
@@ -24,14 +25,20 @@ export class UserService {
   };
 
   getAllUsers = async (): Promise<IUser[]> => {
-    try {
+    /* try { */
+
       console.log("Entered in USER SERVICE");
       const users = await User.find({});
+      if(!users){
+        console.log("SERVCIE : No users found");
+        throw new ApiError("No users found", 404);
+      }
       console.log("SERVICE : users : ", users);
       return users;
-    } catch (err) {
+
+   /*  } catch (err) {
       console.log("SERVICE : Error : ", err);
       throw err;
-    }
+    } */
   };
 }

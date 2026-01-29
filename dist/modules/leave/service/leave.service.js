@@ -24,11 +24,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.LeaveService = void 0;
 const leave_model_1 = __importDefault(require("../../../model/leave.model"));
 const tsyringe_1 = require("tsyringe");
+const api_response_1 = require("../../../utils/api.response");
 let LeaveService = class LeaveService {
     constructor() {
         this.createLeave = (data) => __awaiter(this, void 0, void 0, function* () {
             console.log("Entered in LEAVE SERVICE");
             const leave = yield leave_model_1.default.create(data);
+            if (!leave) {
+                console.log("Error : Leave not created");
+                throw new api_response_1.ApiError("Leave not created", 400);
+            }
             console.log(`leave data in SERVICE : ${leave}`);
             return leave;
         });

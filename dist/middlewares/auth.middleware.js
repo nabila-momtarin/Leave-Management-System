@@ -11,26 +11,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.authMiddleware = void 0;
 const jwt_utils_1 = require("../utils/jwt.utils");
-//import { Error } from "mongoose";
+const api_response_1 = require("../utils/api.response");
 const authMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
-    try {
-        const token = (_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(" ")[1];
-        console.log(`Middleware : Token : ${token}`);
-        if (!token) {
-            console.log("Middleware : Token not found");
-            throw new Error("Token not found");
-        }
-        const dcodedToken = /*await*/ (0, jwt_utils_1.verifyAccessToken)(token);
-        if (!dcodedToken) {
-            console.log("Middleware : Invalid Token");
-            throw new Error("Invalid Token");
-        }
-        console.log("Token decoded successfully");
-        next();
+    /* try { */
+    const token = (_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(" ")[1];
+    console.log(`Middleware : Token : ${token}`);
+    if (!token) {
+        console.log("Middleware : Token not found");
+        throw new api_response_1.ApiError("Token not found", 4001);
     }
-    catch (err) {
+    const dcodedToken = /*await*/ (0, jwt_utils_1.verifyAccessToken)(token);
+    if (!dcodedToken) {
+        console.log("Middleware : Invalid Token");
+        throw new api_response_1.ApiError("Invalid Token", 4010);
+    }
+    console.log("Token decoded successfully");
+    next();
+    /* } catch (err : any) {
         console.log(`Error : auth Middleware : ${err}`);
-    }
+    } */
 });
 exports.authMiddleware = authMiddleware;

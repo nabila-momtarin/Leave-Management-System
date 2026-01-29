@@ -25,50 +25,59 @@ exports.UserController = void 0;
 const tsyringe_1 = require("tsyringe");
 const user_service_1 = require("../service/user.service");
 const bcrypt_1 = __importDefault(require("bcrypt"));
+const api_response_1 = require("../../../utils/api.response");
 let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
         this.goCreateUser = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            try {
-                console.log("Entered in USER CONTROLLER");
-                const data = req.body;
-                // console.log(`request data in CONTROLLER : ${data}`);
-                console.log("request data in CONTROLLER :", data);
-                //check profile pic exist or not
-                console.log("image in CONTROLLER :", req.files);
-                if (!req.files) {
-                    return res.status(400).send("No profile picture uploaded.");
-                }
-                const hashedPassword = yield bcrypt_1.default.hash(data.password, 10);
-                const userData = Object.assign(Object.assign({}, data), { password: hashedPassword, profilePic: req.files });
-                const user = yield this.userService.createUser(userData);
-                console.log(`user in controller : ${user}\n\n`);
-                return res.status(200).json({
-                    status: "200",
-                    message: "User added successfully",
-                    timeStamp: new Date(),
-                    data: user,
-                });
+            /*     try { */
+            console.log("Entered in USER CONTROLLER");
+            const data = req.body;
+            // console.log(`request data in CONTROLLER : ${data}`);
+            console.log("request data in CONTROLLER :", data);
+            //check profile pic exist or not
+            console.log("image in CONTROLLER :", req.files);
+            if (!req.files) {
+                throw new api_response_1.ApiError("No profile picture/documents uploaded", 400);
+                // return res.status(400).send("No profile picture uploaded.");
             }
-            catch (err) {
-                console.log("ERROR in User CONTROLLER : ", err);
-                return res.status(400).json(err);
+            const hashedPassword = yield bcrypt_1.default.hash(data.password, 10);
+            if (!hashedPassword) {
+                throw new api_response_1.ApiError("Error in hashing password", 400);
             }
+            const userData = Object.assign(Object.assign({}, data), { password: hashedPassword, profilePic: "string" });
+            const user = yield this.userService.createUser(userData);
+            if (!user) {
+                throw new api_response_1.ApiError("Error in creating user", 400);
+            }
+            console.log(`user in controller : ${user}\n\n`);
+            return res.status(200).json({
+                status: "200",
+                message: "User added successfully",
+                timeStamp: new Date(),
+                data: user,
+            });
+            /*  } catch (err) {
+              console.log("ERROR in User CONTROLLER : ", err);
+             //  return res.status(400).json(err);
+            } */
         });
         this.getAllUsers = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            try {
-                console.log("Entered in USER CONTROLLER");
-                const users = yield this.userService.getAllUsers();
-                res.status(200).json({
-                    status: "200",
-                    message: "Users fetched successfully",
-                    timeStamp: new Date(),
-                    data: users,
-                });
+            // try {
+            console.log("Entered in USER CONTROLLER");
+            const users = yield this.userService.getAllUsers();
+            if (!users) {
+                throw new api_response_1.ApiError("No users found", 404);
             }
-            catch (err) {
-                console.log("ERROR in User CONTROLLER : ", err);
-            }
+            res.status(200).json({
+                status: "200",
+                message: "Users fetched successfully",
+                timeStamp: new Date(),
+                data: users,
+            });
+            // } catch (err) {
+            //   console.log("ERROR in User CONTROLLER : ", err);
+            // }
         });
     }
 };
