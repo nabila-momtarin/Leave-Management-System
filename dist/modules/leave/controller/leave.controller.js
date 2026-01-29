@@ -28,12 +28,23 @@ let LeaveController = class LeaveController {
         this.postLeave = (req, res) => __awaiter(this, void 0, void 0, function* () {
             // try {
             console.log("Entered in LEAVE CONTROLLER");
-            const data = req.body;
-            if (!data) {
-                console.log("Controller: no data found from req");
-                throw new api_response_1.ApiError("No data found", 400);
+            const body = req.body;
+            if (!body.employeeId ||
+                !body.leaveType ||
+                !body.leaveStatus ||
+                !body.startDate ||
+                !body.endDate ||
+                typeof body.startDate !== "string" ||
+                typeof body.endDate !== "string" ||
+                typeof body.employeeId !== "string" ||
+                typeof body.leaveType !== "string" ||
+                typeof body.leaveStatus !== "string") {
+                console.log("Controller: Invalid request payload");
+                throw new api_response_1.ApiError("Invalid request payload", 400);
             }
+            const data = body;
             console.log(`request data in CONTROLLER : ${data}`);
+            console.log("\n", data);
             const leave = yield this.LeaveService.createLeave(data);
             if (!leave) {
                 console.log("Controller: Leave not created");
