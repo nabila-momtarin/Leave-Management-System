@@ -22,7 +22,6 @@ const storage = multer.diskStorage({
     console.log(documentsFolderPath,"file path documents");
 
 
-
     // cb(null,documentsFolderPath)
 
     if (file.fieldname === "image") {
