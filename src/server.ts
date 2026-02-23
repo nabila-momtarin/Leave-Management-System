@@ -1,4 +1,4 @@
-// import "reflect-metadata";
+import "reflect-metadata";
 
 import { connectDB } from "./config/db";
 import app from "./app";

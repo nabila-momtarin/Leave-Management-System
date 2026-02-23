@@ -29,7 +29,7 @@ export class UserController {
     const userData: IUser = {
       ...data,
       password: hashedPassword,
-      profilePic: "string",
+      // profilePic: "string",
       // doc: req.files.,
     };
 

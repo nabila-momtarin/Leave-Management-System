@@ -45,7 +45,7 @@ let UserController = class UserController {
             if (!hashedPassword) {
                 throw new api_response_1.ApiError("Error in hashing password", 400);
             }
-            const userData = Object.assign(Object.assign({}, data), { password: hashedPassword, profilePic: "string" });
+            const userData = Object.assign(Object.assign({}, data), { password: hashedPassword });
             const user = yield this.userService.createUser(userData);
             if (!user) {
                 throw new api_response_1.ApiError("Error in creating user", 400);
