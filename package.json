@@ -1,0 +1,42 @@
+{
+  "name": "leave-management-system",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.ts",
+  "scripts": {
+    "dev:watch": "tsup --watch",
+    "watch": "tsc --watch",
+    "start": "tsc && node dist/server.js",
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nabila-momtarin/Leave-Management-System.git"
+  },
+  "keywords": [],
+  "author": "Nab",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/nabila-momtarin/Leave-Management-System/issues"
+  },
+  "homepage": "https://github.com/nabila-momtarin/Leave-Management-System#readme",
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/multer": "^2.0.0",
+    "@types/node": "^25.1.0",
+    "nodemon": "^3.1.11",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "mongoose": "^9.1.5",
+    "multer": "^2.0.2",
+    "reflect-metadata": "^0.2.2",
+    "tsyringe": "^4.10.0"
+  }
+}

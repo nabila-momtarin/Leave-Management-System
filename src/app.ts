@@ -7,6 +7,8 @@ const app = express();
 
 app.use(express.json());
 
+app.use("/media", express.static("media"));
+
 
 app.use("/api", router);
 

@@ -1,4 +1,4 @@
 .env
-env.ts
 node_modules
-package.json
+dist
+uploads
