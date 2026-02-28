@@ -22,6 +22,7 @@ export class WhatsAppService {
       }
     );
 
+    console.log("META RESPONSE:", JSON.stringify(response.data, null, 2));
     return response.data;
   }
 }
