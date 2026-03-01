@@ -33,7 +33,7 @@ export class WhatsAppService {
 
     try{
       console.log("Sending WhatsApp message via Axios...");
-      const response = await axios.post(url, body1, { headers });
+      const response = await axios.post(url, body2, { headers });
       // console.log("META RESPONSE:", JSON.stringify(response.data, null, 2));
     return response.data;
     } catch(error){

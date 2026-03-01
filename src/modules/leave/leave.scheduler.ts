@@ -23,11 +23,11 @@ export class LeaveScheduler {
         'Hello World, This is a reminder for upcoming leave from whatsapp scheduler.'
       );
 
-      // await this.emailService.sendEmail(
-      //   'admin@taghyeer.ai',
-      //   'Leave Reminder',
-      //   'This is a reminder for upcoming leave.'
-      // );
+      await this.emailService.sendEmail(
+        'admin@taghyeer.ai',
+        'Leave Reminder',
+        'This is a reminder for upcoming leave.'
+      );
     });
   }
 }
