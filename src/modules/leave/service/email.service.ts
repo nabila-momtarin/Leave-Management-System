@@ -20,14 +20,14 @@ export class EmailService {
     const mailOptions = {
       from: 'admin@taghyeer.ai',
       to: ['nabila.momtarin.me@gmail.com', 
-        'limon4n@gmail.com',
-        'imtiazatik12@gmail.com', 
-        'abdurrahmany418@gmail.com', 
-        'majharul.flutter@gmail.com', 
-        'auishee222@gmail.com', 
-        'mamunr412@gmail.com',
-        'rashedsarder13@gmail.com',
-        'shamim36960@gmail.com'
+        // 'limon4n@gmail.com',
+        // 'imtiazatik12@gmail.com', 
+        // 'abdurrahmany418@gmail.com', 
+        // 'majharul.flutter@gmail.com', 
+        // 'auishee222@gmail.com', 
+        // 'mamunr412@gmail.com',
+        // 'rashedsarder13@gmail.com',
+        // 'shamim36960@gmail.com'
        ],
       subject: 'Bonus Leave Announcement',
       text: 'Dear Team,\n\nCongratulations! You have been awarded a bonus leave for your outstanding performance. Please contact HR for more details.\n\nBest regards,\nHR Department,\nTaghyeer Technologies',
