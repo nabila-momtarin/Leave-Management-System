@@ -18,4 +18,10 @@ export class LeaveService {
         console.log(`leave data in SERVICE : ${leave}`);
         return leave;
     }
+
+    sendLeaveReminders = async (): Promise<void> => {
+        console.log("Sending leave reminders...");
+
+        //code to fetch pending leave requests and send reminders
+    }
 }
