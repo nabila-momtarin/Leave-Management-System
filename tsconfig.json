@@ -25,3 +25,46 @@
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
 } 
+
+// {
+//   "compilerOptions": {
+//     // File Layout
+//     "rootDir": "./src",           // **TypeScript source code** thakbe src folder e
+//     "outDir": "./dist",           // **JavaScript output** dist folder e hobe
+
+//     // Module system for Node.js
+//     "module": "commonjs",         // Node.js e **CommonJS module system** bebohar hobe (for `require`)
+//     "target": "es6",              // **ES6 syntax** e TypeScript code compile hobe
+
+//     // Node.js specific types
+//     "types": ["node"],            // **Node.js types** include korche jate `fs`, `path` use korte pari
+//     // "lib": ["esnext"],         // Jodi browser specific library chai, tahole add korte hobe
+//     // "types": ["node"],         // Node.js types include kora hobe
+
+//     // Typechecking Options
+//     "noUncheckedIndexedAccess": true,  // **Typechecking** e **undefined** access ke block korbe
+//     "exactOptionalPropertyTypes": true, // Optional properties er type-checking strict korbe
+
+//     // Strict Typechecking Options (Recommended for better development)
+//     "noImplicitAny": true,           // **`any` type** ke avoid korbe, apni specific type define korben
+//     "noUnusedLocals": true,          // **Unused local variables** warning dekhabe
+//     "noUnusedParameters": true,      // **Unused parameters** warning dekhabe
+//     "noUncheckedSideEffectImports": true,  // **Imports** jodi side effects hoy, warning dekhabe
+
+//     // Additional Module Configuration for Decorators (Useful for DI like tsyringe)
+//     "emitDecoratorMetadata": true,  // **Decorator** metadata generate korbe
+//     "experimentalDecorators": true, // **Decorator** use korar jonno
+
+//     // Compilation and Module Handling
+//     "strict": true,                 // **Strict mode** on, jeta type-checking e error detect korte help kore
+//     "isolatedModules": true,        // TypeScript **modules** independent hobe (useful in complex setups)
+//     "moduleDetection": "force",     // **Module auto-detection** kora hobe (needed for module handling)
+
+//     // Optional Outputs
+//      "sourceMap": true,           // Debugging e **source maps** chai, tahole enable kora uchit
+//     // "declaration": true,         // Type declarations generate korbe (library development er jonno)
+//     // "declarationMap": true,      // Deklaration map output korbe (debugging er jonno useful)
+//   },
+//   "include": ["src/**/*"],           // `src` folder er **sob** file include hobe
+//   "exclude": ["node_modules", "dist"]  // **`node_modules`** and **`dist`** folder exclude kora hobe
+// }

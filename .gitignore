@@ -1,4 +1,4 @@
+dist
+media
 .env
-env.ts
 node_modules
-package.json
